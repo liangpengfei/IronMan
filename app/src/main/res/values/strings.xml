@@ -20,4 +20,6 @@
     <string name="title_private_protect">隐私保护</string>
     <string name="title_app_manager">软件管理</string>
     <string name="title_usually_function">常用功能</string>
+    <string name="title_activity_regist">RegistActivity</string>
+
 </resources>

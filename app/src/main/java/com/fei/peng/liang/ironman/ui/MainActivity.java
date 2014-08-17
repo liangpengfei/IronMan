@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.fei.peng.liang.ironman.R;
 
@@ -20,6 +22,8 @@ public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     Intent intent;
+    static boolean everload;
+    private EditText username;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -34,11 +38,13 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //在初始化的时候，进行处理
-        boolean everload=this.getIntent().getBooleanExtra("everload",false);
+        everload=this.getIntent().getBooleanExtra("everload",false);
         if (everload){
             setContentView(R.layout.activity_main_ever);
         }else {
             setContentView(R.layout.activity_main_never);
+            username= (EditText) findViewById(R.id.et_load_email);
+
         }
 
 
@@ -50,6 +56,16 @@ public class MainActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+    }
+
+    public void regist(View view){
+        intent = new Intent(MainActivity.this,RegistActivity.class);
+        if (username.getText().toString()==null){
+            intent.putExtra("username","");
+        }else{
+            intent.putExtra("username", username.getText().toString());
+        }
+
     }
 
     @Override
@@ -147,8 +163,13 @@ public class MainActivity extends Activity
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
+            View rootView;
+            if(everload){
+                rootView = inflater.inflate(R.layout.fragment_main_ever, container, false);
+            }else {
+                rootView = inflater.inflate(R.layout.fragment_main_never, container, false);
+            }
+           return rootView;
         }
 
         @Override
