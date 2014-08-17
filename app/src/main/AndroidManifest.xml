@@ -33,11 +33,6 @@
             android:label="@string/title_activity_application"
             android:parentActivityName=".ui.MainActivity" >
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -46,7 +41,19 @@
         <activity
             android:name=".ui.RegistActivity"
             android:label="@string/title_activity_regist"
-            android:parentActivityName=".ui.MainActivity">
+            android:parentActivityName=".ui.MainActivity" >
+        </activity>
+        <activity
+            android:name=".ui.RegisterSuccessActivity"
+            android:label="@string/title_activity_register_success" >
+        </activity>
+        <activity
+            android:name=".ui.LoadSuccessActivity"
+            android:label="@string/title_activity_load_success" >
+        </activity>
+        <activity
+            android:name=".ui.FindPasswordActivity"
+            android:label="@string/title_activity_find_password" >
         </activity>
     </application>
     <!-- To access Google+ APIs: -->
@@ -64,5 +71,6 @@
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.SEND_SMS"/>
 
 </manifest>

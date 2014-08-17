@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="您处于离线状态"
-        android:id="@+id/textView"
+        android:id="@+id/tv_regist_success"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="53dp"
@@ -19,8 +19,8 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/et_load_email"
-        android:hint="用户名/邮箱"
-        android:layout_below="@+id/textView"
+        android:hint="用户名/手机"
+        android:layout_below="@+id/tv_regist_success"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="49dp" />
 
@@ -41,8 +41,8 @@
         android:text="登录"
         android:id="@+id/button_load_load"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/textView"
-        android:layout_toStartOf="@+id/textView"
+        android:layout_toLeftOf="@+id/tv_regist_success"
+        android:layout_toStartOf="@+id/tv_regist_success"
         android:layout_marginBottom="63dp"
         android:onClick="signin" />
 
@@ -62,7 +62,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="请登录"
         android:id="@+id/textView3"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/tv_regist_success"
         android:layout_centerHorizontal="true"
         android:textSize="30dp" />
 

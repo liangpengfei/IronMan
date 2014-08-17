@@ -31,7 +31,7 @@ public class SplashActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_splash);
-        sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        sharedPref = this.getSharedPreferences("user",Context.MODE_PRIVATE);
 
         relativeLayout= (RelativeLayout) findViewById(R.id.splash_rl_layout);
 
@@ -40,12 +40,10 @@ public class SplashActivity extends Activity {
         relativeLayout.startAnimation(alphaAnimation);
         intent=new Intent(SplashActivity.this, MainActivity.class);
 
-        String user=sharedPref.getString("user",null);
-        String password=sharedPref.getString("password",null);
+        boolean everload=sharedPref.getBoolean("everload",false);
 
-        if (user!=null && password!=null){
-            intent.putExtra("everload",false);
-        }
+        intent.putExtra("everload",everload);
+
 
     }
 

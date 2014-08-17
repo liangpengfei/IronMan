@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="注册您的账户吧！！"
-        android:id="@+id/textView"
+        android:id="@+id/tv_regist_success"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="39dp" />
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/et_regist_username"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/tv_regist_success"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="51dp"
         android:hint="用户名" />
@@ -31,13 +31,13 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
+        android:inputType="phone"
         android:ems="10"
         android:id="@+id/et_regist_email"
         android:layout_below="@+id/et_regist_username"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="邮箱" />
+        android:hint="手机  便于找回密码" />
 
     <EditText
         android:layout_width="match_parent"

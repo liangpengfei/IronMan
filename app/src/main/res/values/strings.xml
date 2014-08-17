@@ -20,6 +20,9 @@
     <string name="title_private_protect">隐私保护</string>
     <string name="title_app_manager">软件管理</string>
     <string name="title_usually_function">常用功能</string>
-    <string name="title_activity_regist">RegistActivity</string>
+    <string name="title_activity_regist">注册</string>
+    <string name="title_activity_register_success">注册成功</string>
+    <string name="title_activity_load_success">登录成功</string>
+    <string name="title_activity_find_password">FindPasswordActivity</string>
 
 </resources>

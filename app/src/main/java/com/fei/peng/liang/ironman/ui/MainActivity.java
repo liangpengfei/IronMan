@@ -23,7 +23,7 @@ public class MainActivity extends Activity
 
     Intent intent;
     static boolean everload;
-    private EditText username;
+    EditText username,password;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -38,12 +38,18 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //在初始化的时候，进行处理
+        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+
         everload=this.getIntent().getBooleanExtra("everload",false);
         if (everload){
             setContentView(R.layout.activity_main_ever);
         }else {
             setContentView(R.layout.activity_main_never);
-            username= (EditText) findViewById(R.id.et_load_email);
+
+            //View view = inflater.inflate(R.layout.activity_main_never, null);
+
+            username = (EditText)findViewById(R.id.et_load_email);
+            password = (EditText)findViewById(R.id.et_regist_username);
 
         }
 
@@ -60,12 +66,19 @@ public class MainActivity extends Activity
 
     public void regist(View view){
         intent = new Intent(MainActivity.this,RegistActivity.class);
-        if (username.getText().toString()==null){
-            intent.putExtra("username","");
-        }else{
-            intent.putExtra("username", username.getText().toString());
-        }
+        startActivity(intent);
 
+    }
+
+    public void signin(View view){
+//        System.out.println(username.getText().toString());
+//        System.out.println(password.getText().toString());
+        Toast.makeText(this,"有一些小小的问题啦！",Toast.LENGTH_LONG).show();
+    }
+
+    public void tv_forget_password(View view){
+        intent = new Intent(MainActivity.this,FindPasswordActivity.class);
+        startActivity(intent);
     }
 
     @Override
