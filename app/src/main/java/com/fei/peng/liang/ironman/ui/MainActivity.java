@@ -38,7 +38,7 @@ public class MainActivity extends Activity
         if (everload){
             setContentView(R.layout.activity_main_ever);
         }else {
-
+            setContentView(R.layout.activity_main_never);
         }
 
 

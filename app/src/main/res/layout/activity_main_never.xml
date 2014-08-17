@@ -43,7 +43,8 @@
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/textView"
         android:layout_toStartOf="@+id/textView"
-        android:layout_marginBottom="63dp" />
+        android:layout_marginBottom="63dp"
+        android:onClick="signin" />
 
     <Button
         android:layout_width="wrap_content"
@@ -52,6 +53,30 @@
         android:id="@+id/button_load_regist"
         android:layout_alignTop="@+id/button_load_load"
         android:layout_alignRight="@+id/et_load_password"
-        android:layout_alignEnd="@+id/et_load_password" />
+        android:layout_alignEnd="@+id/et_load_password"
+        android:onClick="regist" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="请登录"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="忘记密码？"
+        android:id="@+id/textView4"
+        android:onClick="tv_forget_password"
+        android:layout_below="@+id/button_load_regist"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#ff375bff" />
+
 
 </RelativeLayout>
