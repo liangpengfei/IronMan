@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">IronMan</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">设置</string>
+    <string name="versioninfo">版本号：1.0</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_user">我</string>
+    <string name="title_application">应用</string>
+    <string name="title_setting">设置</string>
+    <string name="title_exit">退出</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="note">触摸任意处开启保护！</string>
+    <string name="title_activity_my">我</string>
+    <string name="title_activity_application">应用</string>
+    <string name="title_security">安全防护</string>
+    <string name="title_private_protect">隐私保护</string>
+    <string name="title_app_manager">软件管理</string>
+    <string name="title_usually_function">常用功能</string>
+</resources>
