@@ -43,7 +43,7 @@ public class RegistActivity extends Activity {
             editor.putString("password", password.getText().toString());
             editor.putString("email", email.getText().toString());
             editor.commit();
-            intent=new Intent(RegistActivity.this,MainActivity.class);
+            intent=new Intent(RegistActivity.this,RegisterSuccessActivity.class);
             intent.putExtra("username",username.getText().toString());
             startActivity(intent);
         }

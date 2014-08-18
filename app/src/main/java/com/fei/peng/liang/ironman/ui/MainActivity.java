@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fei.peng.liang.ironman.R;
@@ -21,9 +24,11 @@ import com.fei.peng.liang.ironman.R;
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+
     Intent intent;
     static boolean everload;
     EditText username,password;
+    SharedPreferences sharedPreferences;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -40,9 +45,16 @@ public class MainActivity extends Activity
         //在初始化的时候，进行处理
         LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
 
+
+
         everload=this.getIntent().getBooleanExtra("everload",false);
         if (everload){
             setContentView(R.layout.activity_main_ever);
+            //View view =View.inflate(this,R.layout.activity_main_ever,null);
+            //TextView welcome_name= (TextView)view.findViewById(R.id.tv_welcome_name);
+            //welcome_name.setText("liang");
+//            sharedPreferences=this.getSharedPreferences("user", Context.MODE_PRIVATE);
+//            welcome_name.setText(sharedPreferences.getString("username",""));
         }else {
             setContentView(R.layout.activity_main_never);
 
@@ -110,7 +122,11 @@ public class MainActivity extends Activity
                 intent = new Intent(MainActivity.this,SettingsActivity.class);
                 startActivity(intent);
             case 4:
-                this.finish();
+                //返回到桌面上，相当于退出
+                intent = new Intent();
+                intent.setAction(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
                 break;
         }
     }

@@ -9,24 +9,14 @@
     tools:context="com.fei.peng.liang.ironman.ui.RegistActivity">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="注册您的账户吧！！"
-        android:id="@+id/tv_regist_success"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp" />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/et_regist_username"
-        android:layout_below="@+id/tv_regist_success"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp"
-        android:hint="用户名" />
+        android:hint="6-15个字符"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -34,10 +24,10 @@
         android:inputType="phone"
         android:ems="10"
         android:id="@+id/et_regist_email"
-        android:layout_below="@+id/et_regist_username"
+        android:hint="用于找回密码"
+        android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="手机  便于找回密码" />
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -45,10 +35,10 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/et_regist_password"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:hint="密码" />
+        android:hint="至少6个字符"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -56,19 +46,80 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/et_regist_password2"
-        android:layout_below="@+id/et_regist_password"
-        android:layout_marginTop="41dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:hint="密码确认" />
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="注册"
         android:id="@+id/button_regist_regist"
         android:layout_below="@+id/et_regist_password2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="39dp"
-        android:onClick="regist" />
+        android:onClick="regist"
+        android:background="#ff1a6fff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="用户名"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="手机号码"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/et_regist_username"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="密码"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/et_regist_email"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="密码确认"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/et_regist_password"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="点击上面的【注册】按钮，意味着您同意IronMan保护您的手机！"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/button_regist_regist"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_marginTop="35dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="您的手机号码不会在任何地方公开显示，请您放心！！"
+        android:id="@+id/textView6"
+        android:layout_below="@+id/textView5"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_marginTop="39dp" />
 </RelativeLayout>

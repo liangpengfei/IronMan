@@ -24,5 +24,12 @@
     <string name="title_activity_register_success">注册成功</string>
     <string name="title_activity_load_success">登录成功</string>
     <string name="title_activity_find_password">FindPasswordActivity</string>
+    <string name="hello_blank_fragment1">Hello blank fragment1</string>
+    <string name="hello_blank_fragment2">Hello blank fragment2</string>
+    <string name="hello_blank_fragment">Hello blank fragmesadfsdaffsdfnt</string>
+    <string name="tv_security_fragment">安全防护</string>
+    <string name="tv_private_fragment">隐私保护</string>
+    <string name="tv_function_fragment">常用功能</string>
+    <string name="tv_app_manage_fragment2">软件管理</string>
 
 </resources>

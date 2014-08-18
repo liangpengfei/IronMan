@@ -10,13 +10,12 @@ import android.app.FragmentTransaction;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 import com.fei.peng.liang.ironman.R;
 
 public class ApplicationActivity extends Activity implements ActionBar.TabListener {
@@ -46,7 +45,7 @@ public class ApplicationActivity extends Activity implements ActionBar.TabListen
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Create the adapter that will return a fragment for each of the three
+        // Create the adapter that will return a fragment for each of the four
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
 
@@ -112,6 +111,8 @@ public class ApplicationActivity extends Activity implements ActionBar.TabListen
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
 
+
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -126,12 +127,31 @@ public class ApplicationActivity extends Activity implements ActionBar.TabListen
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            Fragment fragment;
+            switch (position){
+                case 0:
+                    fragment = new SecurityFragment();
+                break;
+                case 1:
+                    fragment = new AppManageFragment();
+                break;
+                case 2:
+                    fragment=new PrivateFragment();
+                break;
+                case 3:
+                    fragment=new FunctionFragment();
+                break;
+                default:
+                    fragment=null;
+            }
+            return  fragment;
+
+
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
+            // Show 4 total pages.
             return 4;
         }
 

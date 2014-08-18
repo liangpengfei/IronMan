@@ -6,4 +6,6 @@
     android:divider="@android:color/transparent"
     android:dividerHeight="0dp"
     android:background="#cc8fcc7d"
-    tools:context="com.fei.peng.liang.ironman.ui.NavigationDrawerFragment" />
+    tools:context="com.fei.peng.liang.ironman.ui.NavigationDrawerFragment"
+    android:id="@+id/drawer"
+    android:textFilterEnabled="false" />

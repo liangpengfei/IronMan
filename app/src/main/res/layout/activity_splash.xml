@@ -32,4 +32,6 @@
         android:layout_centerHorizontal="true"
         android:textColor="#ffff352c" />
 
+
+
 </RelativeLayout>
