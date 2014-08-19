@@ -1,15 +1,21 @@
 package com.fei.peng.liang.ironman.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import com.fei.peng.liang.ironman.R;
+import com.fei.peng.liang.ironman.adapter.SecurityAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +26,7 @@ import com.fei.peng.liang.ironman.R;
  * create an instance of this fragment.
  *
  */
-public class SecurityFragment extends Fragment implements View.OnClickListener{
+public class SecurityFragment extends Fragment{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,10 +35,9 @@ public class SecurityFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Context context=this.getActivity();
 
     private OnFragmentInteractionListener mListener;
-
-    Button test;
 
     /**
      * Use this factory method to create a new instance of
@@ -71,10 +76,28 @@ public class SecurityFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_security, container, false);
-        test = (Button) view.findViewById(R.id.button_test);
-
-        test.setOnClickListener(this);
-        return inflater.inflate(R.layout.fragment_security, container, false);
+        GridView gridView= (GridView) view.findViewById(R.id.gv_security);
+        gridView.setAdapter(new SecurityAdapter(this.getActivity()));
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int p=position+1;
+                switch (p){
+                    case 1:
+                        Intent intent=new Intent(getActivity(),LostProtectedActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 2:
+                        Toast.makeText(getActivity(),LostProtectedActivity.class.toString(),Toast.LENGTH_LONG).show();
+                        Intent intent2=new Intent(getActivity(),LostProtectedActivity.class);
+                        startActivity(intent2);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -90,16 +113,7 @@ public class SecurityFragment extends Fragment implements View.OnClickListener{
         mListener = null;
     }
 
-    @Override
-    public void onClick(View v) {
-        int id=v.getId();
-        switch (id){
-            case R.id.button_test:
-                break;
-            default:
-                break;
-        }
-    }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -116,4 +130,10 @@ public class SecurityFragment extends Fragment implements View.OnClickListener{
         public void onFragmentInteraction(Uri uri);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.out.println("离开了Security");
+        Toast.makeText(this.getActivity(),"你离开了Security",Toast.LENGTH_LONG).show();
+    }
 }

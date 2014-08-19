@@ -28,7 +28,7 @@ public class MainActivity extends Activity
     Intent intent;
     static boolean everload;
     EditText username,password;
-    SharedPreferences sharedPreferences;
+    static SharedPreferences sharedPreferences;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -43,25 +43,28 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //在初始化的时候，进行处理
-        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
-
-
+        sharedPreferences=getSharedPreferences("user",Context.MODE_PRIVATE);
+        //理解LayoutINflater的真正的意义：就仅仅是得到layout的id返回一个View对象，然后再使用setContentView来设置界面
+        LayoutInflater inflater = LayoutInflater.from(this);
 
         everload=this.getIntent().getBooleanExtra("everload",false);
         if (everload){
-            setContentView(R.layout.activity_main_ever);
-            //View view =View.inflate(this,R.layout.activity_main_ever,null);
-            //TextView welcome_name= (TextView)view.findViewById(R.id.tv_welcome_name);
-            //welcome_name.setText("liang");
+
+            //setContentView(R.layout.activity_main_ever);和下面的代码是一样的
+            View layout = inflater.inflate(R.layout.activity_main_ever, null);
+            setContentView(layout);
+
+
+//            TextView welcome_name= (TextView)layout.findViewById(R.id.tv_welcome_name);
+//            welcome_name.setText("liang");
 //            sharedPreferences=this.getSharedPreferences("user", Context.MODE_PRIVATE);
-//            welcome_name.setText(sharedPreferences.getString("username",""));
+//            welcome_name.setText(sharedPreferences.getString("username","")+"");
         }else {
+            //View layout = inflater.inflate(R.layout.activity_main_never, null);
             setContentView(R.layout.activity_main_never);
 
-            //View view = inflater.inflate(R.layout.activity_main_never, null);
-
-            username = (EditText)findViewById(R.id.et_load_email);
-            password = (EditText)findViewById(R.id.et_regist_username);
+//            username = (EditText)findViewById(R.id.et_load_email);
+//            password = (EditText)findViewById(R.id.et_regist_username);
 
         }
 
@@ -115,6 +118,7 @@ public class MainActivity extends Activity
             case 2:
                 mTitle = getString(R.string.title_application);
                 intent = new Intent(MainActivity.this,ApplicationActivity.class);
+                Toast.makeText(this,ApplicationActivity.class.toString(),Toast.LENGTH_LONG).show();
                 startActivity(intent);
                 break;
             case 3:
@@ -126,6 +130,8 @@ public class MainActivity extends Activity
                 intent = new Intent();
                 intent.setAction(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                 startActivity(intent);
                 break;
         }
@@ -189,12 +195,16 @@ public class MainActivity extends Activity
         public PlaceholderFragment() {
         }
 
+        //在这个方法中获取控件的引用，很重要的
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView;
             if(everload){
                 rootView = inflater.inflate(R.layout.fragment_main_ever, container, false);
+                TextView textView= (TextView) rootView.findViewById(R.id.tv_welcome_name);
+                String username = sharedPreferences.getString("username",null).toString();
+                textView.setText(username);
             }else {
                 rootView = inflater.inflate(R.layout.fragment_main_never, container, false);
             }

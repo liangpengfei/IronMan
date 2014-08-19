@@ -31,5 +31,6 @@
     <string name="tv_private_fragment">隐私保护</string>
     <string name="tv_function_fragment">常用功能</string>
     <string name="tv_app_manage_fragment2">软件管理</string>
+    <string name="title_activity_lost_protected">LostProtectedActivity</string>
 
 </resources>

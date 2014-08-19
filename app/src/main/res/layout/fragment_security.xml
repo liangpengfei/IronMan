@@ -5,16 +5,13 @@
     tools:context="com.fei.peng.liang.ironman.ui.SecurityFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/tv_security_fragment" />
+        android:numColumns="3"
+        android:id="@+id/gv_security"
+        android:background="#ffc8f9f2">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test"
-        android:id="@+id/button_test"
-        android:layout_gravity="center"/>
+        </GridView>
 
 </FrameLayout>
