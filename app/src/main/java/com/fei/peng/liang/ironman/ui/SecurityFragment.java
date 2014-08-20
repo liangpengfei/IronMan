@@ -84,11 +84,8 @@ public class SecurityFragment extends Fragment{
                 int p=position+1;
                 switch (p){
                     case 1:
-                        Intent intent=new Intent(getActivity(),LostProtectedActivity.class);
-                        startActivity(intent);
                         break;
                     case 2:
-                        Toast.makeText(getActivity(),LostProtectedActivity.class.toString(),Toast.LENGTH_LONG).show();
                         Intent intent2=new Intent(getActivity(),LostProtectedActivity.class);
                         startActivity(intent2);
                         break;

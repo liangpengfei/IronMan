@@ -38,10 +38,10 @@ public class LostProtectedActivity extends Activity implements View.OnClickListe
         View view=View.inflate(this,R.layout.first_entry_dialog,null);
         et_first_pwd= (EditText) view.findViewById(R.id.et_first_dialog_pwd);
         et_first_pwd_conform= (EditText) view.findViewById(R.id.et_first_dialog_pwd_confirm);
-        Button normal_ok= (Button) view.findViewById(R.id.bt_first_dialog_ok);
-        Button normal_cancle= (Button) view.findViewById(R.id.bt_first_dialog_cancle);
-        normal_ok.setOnClickListener(this);
-        normal_cancle.setOnClickListener(this);
+        Button first_ok= (Button) view.findViewById(R.id.bt_first_dialog_ok);
+        Button first_cancle= (Button) view.findViewById(R.id.bt_first_dialog_cancle);
+        first_ok.setOnClickListener(this);
+        first_cancle.setOnClickListener(this);
         builder.setView(view);
         dialog=builder.create();
         dialog.show();
@@ -61,7 +61,7 @@ public class LostProtectedActivity extends Activity implements View.OnClickListe
     }
 
     private boolean isSetupPwd() {
-        String savedPwd=sharedPreferences.getString("password","");
+        String savedPwd=sharedPreferences.getString("enterpassword","");
         if (TextUtils.isEmpty(savedPwd)){
             return false;
         }else {
