@@ -3,14 +3,21 @@ package com.fei.peng.liang.ironman.ui;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fei.peng.liang.ironman.R;
@@ -18,9 +25,12 @@ import com.fei.peng.liang.ironman.utils.Md5Encoder;
 
 public class LostProtectedActivity extends Activity implements View.OnClickListener {
 
-    SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
     private AlertDialog dialog;
-    EditText et_first_pwd,et_first_pwd_conform,et_normal_pwd;
+    private EditText et_first_pwd,et_first_pwd_conform,et_normal_pwd;
+    private TextView tv_lost_protected_number;
+    private TextView tv_reentry_setup_guide;
+    private CheckBox cb_isprotecting,cb,normal_cb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +63,7 @@ public class LostProtectedActivity extends Activity implements View.OnClickListe
         et_normal_pwd= (EditText) view.findViewById(R.id.et_normal_dialog_pwd);
         Button ok= (Button) view.findViewById(R.id.bt_normal_dialog_ok);
         Button cancle= (Button) view.findViewById(R.id.bt_normal_dialog_cancle);
+        et_normal_pwd.setText("");
         ok.setOnClickListener(this);
         cancle.setOnClickListener(this);
         builder.setView(view);
@@ -109,6 +120,8 @@ public class LostProtectedActivity extends Activity implements View.OnClickListe
                     finish();
                 }else {
                     Toast.makeText(this,"您两次输入的密码不同",Toast.LENGTH_LONG).show();
+                    et_first_pwd_conform.setText("");
+                    et_first_pwd.setText("");
                     return;
                 }
                 break;
@@ -124,19 +137,80 @@ public class LostProtectedActivity extends Activity implements View.OnClickListe
                 }
                 String savedpassword=sharedPreferences.getString("enterpassword","");
                 if (savedpassword.equals(Md5Encoder.encode(userenterpassword))){
-                    Toast.makeText(this,"密码正确",Toast.LENGTH_LONG).show();
-                    dialog.dismiss();
+
+                    if(isSteup()){
+                        //为这一个Activity设置View
+                        setContentView(R.layout.lost_protected);
+                        tv_lost_protected_number = (TextView) this.findViewById(R.id.tv_lost_protected_number);
+                        tv_reentry_setup_guide = (TextView )this.findViewById(R.id.tv_reentry_setup_guide);
+                        cb_isprotecting = (CheckBox )this.findViewById(R.id.cb_isprotecting);
+                        // 初始化这些控件
+                        String number = sharedPreferences.getString("safenumber", "");
+                        tv_lost_protected_number.setText("安全手机号码为:"+number);
+                        //重新进入设置向导的点击事件
+                        tv_reentry_setup_guide.setOnClickListener(this);
+                        // 初始化checkbox的状态
+                        boolean isprotecting = sharedPreferences.getBoolean("isprotecting", false);
+                        if(isprotecting){
+                            cb_isprotecting.setText("手机防盗保护中");
+                            cb_isprotecting.setChecked(true);
+                        }
+
+                        cb_isprotecting.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if(isChecked){
+                                    cb_isprotecting.setText("手机防盗保护中");
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putBoolean("isprotecting", true);
+                                    editor.commit();
+                                }else {
+                                    cb_isprotecting.setText("没有开启防盗保护");
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putBoolean("isprotecting", false);
+                                    editor.commit();
+                                }
+
+                            }
+                        });
+                    }else {
+                        dialog.dismiss();
+                        finish();
+                        Intent intent = new Intent(LostProtectedActivity.this,Setup1Activity.class);
+                        startActivity(intent);
+                    }
                     return;
                 }else {
                     Toast.makeText(this,"密码不正确",Toast.LENGTH_LONG).show();
+                    et_normal_pwd.setText("");
                     return;
                 }
             case R.id.bt_normal_dialog_cancle:
                 dialog.cancel();
                 finish();
                 break;
+            case R.id.tv_reentry_setup_guide:
+                Intent intent = new Intent(LostProtectedActivity.this,Setup1Activity.class);
+                startActivity(intent);
+                break;
             default:
                 break;
         }
+    }
+
+    /*
+    监听Back按键事件
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            dialog.dismiss();
+            finish();
+        }
+        return false;
+    }
+
+    private boolean isSteup(){
+        return  sharedPreferences.getBoolean("issteupalready", false);
     }
 }

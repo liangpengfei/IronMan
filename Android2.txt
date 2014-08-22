@@ -1,0 +1,163 @@
+1.使用arrayAdapter时，新建arrayAdapter时参数注意（this，必须是简单的TextView不能有布局信息，数组）
+2.实现ListView：最简单的是使用array.xml文件直接使用ListView元素；稍复杂的就是使用arrayAdapter来实现动态的内容，注意其中的ResourceID必须是纯TextView；使用SimpleAdapter，对应两个映射的文件，一般都是使用数组，图片使用资源ID，其实使用SimpleAdapter就可以实现很多操作啦，每一个List都是一个Map对象，所以可以从数据库中读取数据出来进而显示
+3.以后不再使用TabHost
+4.在Menu文件夹中存放ActionBar的配置，属性android:showAsAction="ifRoom" />，设定为有空间就显示，onCreateOptionsMenu（Menu menu）得到对象；onOptionsItemSelected（MenuItem item）可以得到每一个item，从而调用item.getItemId来得到ID再与R.id.xxxx对比判断并处理事件；
+5.为下级 Activity 添加向上按钮，首先在mainfest文件中配置当前Activity的父Activity，然后仅仅加一条getActionBar().setDisplayHomeAsUpEnabled(true);就可以设置向上导航，而不用自己去处理响应的事件，学会使用share，search等等功能
+6.你通常应该在onPause()回调方法里面做下面的事情:
+停止动画或者是其他正在运行的操作，那些都会导致CPU的浪费.
+提交没有保存的改变，但是仅仅是在用户离开时期待保存的内容(例如邮件草稿).
+释放系统资源，例如broadcast receivers, sensors (比如GPS), 或者是其他任何会影响到电量的资源。
+如果你的activity实际上是要被Stop，那么你应该为了切换的顺畅而减少在OnPause()方法里面的工作量。
+7.onResume（）一般在里面进行某些控件的初始化
+8.onStop(正在stopping)进行持久化操作
+9.onStart()方法会在每次你的activity可见时都会被调用。
+10.在第一次使用时要写上文件名称，否则程序是不会知道使用哪一个文件的，也就是说，一个程序可能有多个Shared Preference，在使用Shared Preference时，一般在onCreate方法中进行sharedPreference的获取SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);（注意是使用的什么模式），然后在真正需要持久化数据时再使用Editor来加入键值对
+例如：SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+SharedPreferences.Editor editor = sharedPref.edit();
+editor.putInt(getString(R.string.saved_high_score), newHighScore);
+editor.commit();
+11.持久化：使用db包中的继承自SQLiteOpenHelper的类
+package cn.itcast.mobilesafe.db;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+public class AppLockDBHelper extends SQLiteOpenHelper{
+
+	public AppLockDBHelper(Context context) {
+		super(context, "applock.db", null, 1);
+	}
+
+	/**
+	 * 第一次创建数据库的时候执行 oncreate方法
+	 */
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+		//自动增长的ID和name建立了与数据库的联系
+		db.execSQL("CREATE TABLE applock (_id integer primary key autoincrement, packname varchar(30))");
+	}
+
+	/**
+	 * 更新数据库的操作
+	 */
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		
+	}
+}
+其实dbHelper是数据库操作的工具类，实体的类可以使用这个类来建立于数据库的连接，调用SQLiteDatabase db = dbHelper.getReadableDatabase();而db才是真正的操纵数据库的
+12.一般初始化的操作都是在构造方法中进行的，这样dbHelper就可以在下面直接使用啦
+		public AppLockDao(Context context) {
+		this.context = context;
+		dbHelper = new AppLockDBHelper(context);
+	}
+13.Android中的Dao包中的类是用来写操作数据库的具体的方法的，而Service包中的是真正执行Dao中的方法的
+14.在startActivity（intent）之前，要检查是否有可以执行这个intent的APP，否则将是灾难性的后果，crash
+// Verify it resolves
+PackageManager packageManager = getPackageManager();
+List<ResolveInfo> activities = packageManager.queryIntentActivities(mapIntent, 0);
+boolean isIntentSafe = activities.size() > 0;
+15.startActivityForResult()的意义：例如，你的app可以启动一个camera程序并接受拍的照片作为result。或者你可以启动People程序并获取其中联系的人的详情作为result
+16.intent——filter的意义：允许程序员自己调用想要调用的程序，并且在这个过程中可以得到具体的调用信息：包括包名，intent名。使用方法是在startActivity之前添加这个intent的Action属性，在mainfeast文件中定义Activity时是重点。其中Action category data都是可以处理intent请求的，Action根据动作类型，category根据种类，data完全根据域名（这样可以让我们自己来处理自己想要弹出的Activity）
+
+17.常用的startActivityForResult没有明白
+18.sendIntent.setType("text/plain");都有哪些参数
+19.实现Gesture的要点：让整个类implements OnGestureListener接口，然后在接口中建立detector对象并重写onTouchEvent方法来讲手势监测的控制权转交给detector，然后实现其他的方法
+20.理解ContentProvider和ContentResolver的作用：ContentProvider不常用（除非自己写的软件有一个比较好的发展了才用，这个是供别人使用的），相比之下，ContentResolver更常用，使用ContentResolver可以去访问其他已经写好的比较大型的软件，常用的是获取联系人。具体使用如下：
+在任何onCreate方法中，使用getContentResolver方法得到ContentResolver对象，然后再执行相应的操作，注意使用Uri的注意事项。可能会用到的类：ContentValues、UriMatcher、ContentUris
+21.普通service的创建过程是：create、start、destroy
+BindService创建过程：create、bind、connect、unbind、destroy、主要的工作都是在onCreate方法中进行
+
+
+
+
+UI界面的设计：
+layout_weight（权重）的使用，在layout_width为0dip的时候使用
+
+1.使用support时：在sdk manager中下载依赖包，将包粘贴至libs目录下，在manifest 文件中更改，import时有变化，总共三点
+2.方法的回调，Android中的监听器方法都是使用的回调，降低耦合
+3.如果想动态的改变Fragment，就不能使用XML格式的;使用FrameLayout来做Fragment的容器，就可以动态的添加Fragment到容器中去
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+
+public class MainActivity extends FragmentActivity {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.news_articles);
+
+        // Check that the activity is using the layout version with
+        // the fragment_container FrameLayout
+        if (findViewById(R.id.fragment_container) != null) {
+
+            // However, if we're being restored from a previous state,
+            // then we don't need to do anything and should return or else
+            // we could end up with overlapping fragments.
+            if (savedInstanceState != null) {
+                return;
+            }
+
+            // Create an instance of ExampleFragment
+            HeadlinesFragment firstFragment = new HeadlinesFragment();
+            
+            // In case this activity was started with special instructions from an Intent,
+            // pass the Intent's extras to the fragment as arguments
+            firstFragment.setArguments(getIntent().getExtras());
+            
+            // Add the fragment to the 'fragment_container' FrameLayout
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, firstFragment).commit();
+        }
+    }
+}
+
+注意这句话：Because the fragment has been added to the FrameLayout container at runtime—instead of defining it in the activity's layout 
+with a <fragment> element—the activity can remove the fragment and replace it with a different one.
+
+
+1.使用自定义的View，extends View类，其实就是实现一个类，然后可以在XML布局文件中使用。怎么设置属性？？创建View的时候，要传入一个上下文	
+ 首先在values目录下添加attrs.xml文件，在定义属性
+
+<?xml version="1.0" encoding="utf-8"?> 
+
+<resources> 
+
+    <declare-styleable name="MyView"> 
+
+    <attr name="textColor" format="color"/> 
+
+    <attr name="textSize" format="dimension"/> 
+
+    </declare-styleable> 
+
+</resources>
+
+然后在布局文件中完成：
+
+xmlns:my=http://schemas.android.com/apk/res/com.example.xhelloworld
+
+<com.example.xhelloworld.MyView 
+
+       android:layout_width="fill_parent" 
+
+       android:layout_height="wrap_content"   
+
+       my:textColor="#FFFFFFFF"   
+
+       my:textSize="22dp" 
+
+    />  
+	
+2.LayoutInflater的用法以及目的：目的都是把xml表述的layout转化为View对象	，然后就可以获取View对象中的控件
+相关方法：setContentView
+
+3.在Fragment中获取到Activity的context：使用this.getActivity（）方法就可以啦
+
+8月21日：
+1.使用anim中的动画设置，常用的：	overridePendingTransition（两个动画文件），只用来切换两个Activity。
+2.异常：libpng error not a png file，图片不能直接更改后缀名，要使用图像的软件来save为PNG格式
+3.使用implements View.OnClickListener时必须要实现onClick方法，然而，在实现在各个方法之前都要对各个控件进行监听器的绑定，setOnClickListener（this）
+4.使用onClick设定的时候，后面就有空格也是不行的，会被编译器识别，导致找不到
+使用LIstView的基本的过程：得到ListView控件；调用listview.setAdapter(new ConactAdapter());在本文件中再创建；为item设置监听调用listview.setOnItemClickListener
+去实现onItemClick方法

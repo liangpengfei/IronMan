@@ -1,0 +1,5 @@
+1.java中字符串使用。equals（）方法来比较
+2.sharedPreferences是要指定文件的名称的，不然是存不上的
+3.持久化保存数据是在onPause方法中，不要有耗时的保存操作，若大量，则另开线程吧，别阻塞UI线程。
+4.List对象多数是存入的domain实体类对象，名字叫infos。List有一个方法get（），处理item的点击事件的时候，可以传入position参数
+5.忘了是怎么添加联系人的，就看看Setup3Activity及其相关的代码

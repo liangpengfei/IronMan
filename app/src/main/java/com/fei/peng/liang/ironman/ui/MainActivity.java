@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,10 +25,11 @@ import com.fei.peng.liang.ironman.R;
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-
+    private String strpwd,strname,strphone;
     Intent intent;
     static boolean everload;
-    EditText username,password;
+    private static EditText password,email_or_phone;
+
     static SharedPreferences sharedPreferences;
 
     /**
@@ -44,6 +46,9 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         //在初始化的时候，进行处理
         sharedPreferences=getSharedPreferences("user",Context.MODE_PRIVATE);
+        strname = sharedPreferences.getString("username",null);
+        strpwd = sharedPreferences.getString("password",null);
+        strphone = sharedPreferences.getString("email",null);
         //理解LayoutINflater的真正的意义：就仅仅是得到layout的id返回一个View对象，然后再使用setContentView来设置界面
         LayoutInflater inflater = LayoutInflater.from(this);
 
@@ -61,8 +66,10 @@ public class MainActivity extends Activity
 //            welcome_name.setText(sharedPreferences.getString("username","")+"");
         }else {
             //View layout = inflater.inflate(R.layout.activity_main_never, null);
-            setContentView(R.layout.activity_main_never);
+            //setContentView(R.layout.activity_main_never);
+            View layout = inflater.inflate(R.layout.activity_main_never, null);
 
+            setContentView(layout);
 //            username = (EditText)findViewById(R.id.et_load_email);
 //            password = (EditText)findViewById(R.id.et_regist_username);
 
@@ -85,15 +92,31 @@ public class MainActivity extends Activity
 
     }
 
+
     public void signin(View view){
 //        System.out.println(username.getText().toString());
 //        System.out.println(password.getText().toString());
-        Toast.makeText(this,"有一些小小的问题啦！",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"有一些小小的问题啦！现在可以解决了",Toast.LENGTH_LONG).show();
+//        System.out.println(password.getText().toString());
+//        System.out.println(email_or_phone.getText().toString());
+//        System.out.println(strname+strpwd+strphone);
+//        if (strpwd.equals(password.getText().toString())  && (strname.equals(email_or_phone.getText().toString()) || strphone.equals(email_or_phone.getText().toString())) ){
+//            intent = new Intent(MainActivity.this,LoadSuccessActivity.class);
+//            startActivity(intent);
+//            SharedPreferences.Editor editor=sharedPreferences.edit();
+//            editor.putBoolean("everload",true);
+//            editor.commit();
+//            Toast.makeText(this,"登录成功!!",Toast.LENGTH_LONG).show();
+//        }else {
+//            Toast.makeText(this,"您输入的用户名或密码错误！！",Toast.LENGTH_LONG).show();
+//            password.setText("");
+//        }
     }
 
     public void tv_forget_password(View view){
-        intent = new Intent(MainActivity.this,FindPasswordActivity.class);
-        startActivity(intent);
+//        intent = new Intent(MainActivity.this,FindPasswordActivity.class);
+//        startActivity(intent);
+        Toast.makeText(this,"forget",Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -116,10 +139,15 @@ public class MainActivity extends Activity
                 mTitle = getString(R.string.title_user);
                 break;
             case 2:
-                mTitle = getString(R.string.title_application);
-                intent = new Intent(MainActivity.this,ApplicationActivity.class);
-                Toast.makeText(this,ApplicationActivity.class.toString(),Toast.LENGTH_LONG).show();
-                startActivity(intent);
+                if (everload){
+                    mTitle = getString(R.string.title_application);
+                    intent = new Intent(MainActivity.this,ApplicationActivity.class);
+                    startActivity(intent);
+                }else {
+                    LayoutInflater inflater = LayoutInflater.from(this);
+                    View layout = inflater.inflate(R.layout.activity_main_never, null);
+                    setContentView(layout);
+                }
                 break;
             case 3:
                 mTitle = getString(R.string.title_setting);
@@ -204,9 +232,12 @@ public class MainActivity extends Activity
                 rootView = inflater.inflate(R.layout.fragment_main_ever, container, false);
                 TextView textView= (TextView) rootView.findViewById(R.id.tv_welcome_name);
                 String username = sharedPreferences.getString("username",null).toString();
-                textView.setText(username);
+                textView.setText(username+"您好");
             }else {
                 rootView = inflater.inflate(R.layout.fragment_main_never, container, false);
+                email_or_phone = (EditText) rootView.findViewById(R.id.et_load_email_and_phone);
+                password = (EditText) rootView.findViewById(R.id.et_regist_load_password);
+
             }
            return rootView;
         }
@@ -217,6 +248,18 @@ public class MainActivity extends Activity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            intent = new Intent();
+            intent.setAction(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+            startActivity(intent);
+        }
+        return false;
     }
 
 }

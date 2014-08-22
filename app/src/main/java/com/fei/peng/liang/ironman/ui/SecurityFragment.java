@@ -130,7 +130,7 @@ public class SecurityFragment extends Fragment{
     @Override
     public void onPause() {
         super.onPause();
-        System.out.println("离开了Security");
+        System.out.println("@test离开了Security");
         Toast.makeText(this.getActivity(),"你离开了Security",Toast.LENGTH_LONG).show();
     }
 }

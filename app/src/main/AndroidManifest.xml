@@ -30,6 +30,7 @@
         <activity
             android:name=".ui.SettingsActivity"
             android:label="@string/title_activity_settings"
+            android:parentActivityName=".ui.MainActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -68,6 +69,72 @@
             android:name=".ui.LostProtectedActivity"
             android:label="@string/title_activity_lost_protected" >
         </activity>
+
+        <!-- 当触发NEW_OUTGOING_CALL时，开始这个receiver -->
+        <receiver
+            android:name=".receiver.OutCallReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter android:priority="1000" >
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".ui.Setup1Activity"
+            android:label="@string/title_activity_setup1" >
+        </activity>
+        <activity
+            android:name=".ui.Setup2Activity"
+            android:label="@string/title_activity_setup2"
+            android:parentActivityName=".ui.Setup1Activity" >
+        </activity>
+        <activity
+            android:name=".ui.Setup3Activity"
+            android:label="@string/title_activity_setup3"
+            android:parentActivityName=".ui.Setup2Activity" >
+        </activity>
+        <activity
+            android:name=".ui.Setup4Activity"
+            android:label="@string/title_activity_setup4"
+            android:parentActivityName=".ui.Setup3Activity" >
+        </activity>
+        <activity
+            android:name=".ui.Setup5Activity"
+            android:label="@string/title_activity_setup5"
+            android:parentActivityName=".ui.Setup4Activity" >
+        </activity>
+
+        <receiver android:name=".receiver.MyAdmin" >
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/my_admin" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".ui.SelectContactActivity"
+            android:label="@string/title_activity_select_contact" >
+        </activity>
+
+        <receiver
+            android:name=".receiver.BootCompleteReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".receiver.SMSReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
     </application>
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -85,5 +152,8 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
 </manifest>

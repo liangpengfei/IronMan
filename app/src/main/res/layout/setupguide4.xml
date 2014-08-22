@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/select_contact_background"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_marginTop="40dip"
+        style="@style/text_title_style"
+        android:text="4.设置解屏密码" />
+
+    <ImageView style="@style/devide_line_style" />
+
+    <TextView
+        style="@style/text_content_style"
+        android:layout_marginTop="8dip"
+        android:text="手机远程锁定后,使用此密码解锁屏幕(注意，只能用数字，不要用字母，否则后果自负！)" />
+
+    <EditText
+        android:inputType="textPassword"
+        android:id="@+id/et_setup5_pwd"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入手机解锁密码" />
+
+    <EditText
+        android:inputType="textPassword"
+        android:id="@+id/et_setup5_pwdcof"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="请再次输入手机解锁密码" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dip"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <ImageView style="@style/image_status_off_style" />
+
+        <ImageView style="@style/image_status_off_style" />
+        
+        <ImageView style="@style/image_status_off_style" />
+        
+        <ImageView style="@style/image_status_on_style" />
+        
+         <ImageView style="@style/image_status_off_style" />
+        
+        
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bind" />
+        </LinearLayout>
+
+        <Button
+            android:onClick="next4"
+            android:textSize="20sp"
+            android:background="#ABFB55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:drawableRight="@drawable/next"
+            android:text="下一步" />
+
+        <Button
+            android:onClick="pre4"
+            android:textSize="20sp"
+            android:background="#ABFB55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/previous"
+            android:text="上一步" />
+    </RelativeLayout>
+
+</LinearLayout>

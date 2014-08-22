@@ -15,7 +15,7 @@ import com.fei.peng.liang.ironman.R;
 
 public class RegisterSuccessActivity extends Activity {
 
-    String username,password;
+    String username,password,phone;
     EditText etusername,etpassword;
     SharedPreferences sharedPreferences;
     Intent intent;
@@ -28,6 +28,7 @@ public class RegisterSuccessActivity extends Activity {
         sharedPreferences=this.getSharedPreferences("user",Context.MODE_PRIVATE);
         username = sharedPreferences.getString("username",null);
         password = sharedPreferences.getString("password",null);
+        phone = sharedPreferences.getString("email",null);
 
         etusername = (EditText) findViewById(R.id.et_regist_load_username);
         etpassword = (EditText) findViewById(R.id.et_regist_load_password);
@@ -44,8 +45,8 @@ public class RegisterSuccessActivity extends Activity {
         System.out.println(etusername.getText().toString());
         System.out.println(etpassword.getText().toString());
 
-        if (password.equals(etpassword.getText().toString())  && username.equals(etusername.getText().toString()) ){
-            intent = new Intent(RegisterSuccessActivity.this,LoadSuccessActivity.class);
+        if (password.equals(etpassword.getText().toString())  && (username.equals(etusername.getText().toString()) || phone.equals(etusername.getText().toString())) ){
+            intent = new Intent(RegisterSuccessActivity.this,MainActivity.class);
             startActivity(intent);
             SharedPreferences.Editor editor=sharedPreferences.edit();
             editor.putBoolean("everload",true);

@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/et_load_email"
+        android:id="@+id/et_load_email_and_phone"
         android:hint="用户名/手机"
         android:layout_below="@+id/tv_regist_success"
         android:layout_centerHorizontal="true"
@@ -29,32 +29,38 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/et_regist_username"
+        android:id="@+id/et_load_"
         android:hint="密码"
         android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/et_load_email"
-        android:layout_alignStart="@+id/et_load_email" />
+        android:layout_alignLeft="@+id/et_load_email_and_phone"
+        android:layout_alignStart="@+id/et_load_email_and_phone" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="登录"
         android:id="@+id/button_load_load"
+        android:layout_marginBottom="62dp"
+        android:onClick="signin"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/tv_regist_success"
-        android:layout_toStartOf="@+id/tv_regist_success"
-        android:layout_marginBottom="63dp"
-        android:onClick="signin" />
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#ff1a6fff" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="注册"
         android:id="@+id/button_load_regist"
+        android:onClick="regist"
+        android:layout_toStartOf="@+id/textView3"
         android:layout_alignTop="@+id/button_load_load"
-        android:layout_alignRight="@+id/et_regist_username"
-        android:layout_alignEnd="@+id/et_regist_username"
-        android:onClick="regist" />
+        android:layout_toLeftOf="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#ff1a6fff" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -76,7 +82,8 @@
         android:layout_below="@+id/button_load_regist"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textColor="#ff375bff" />
+        android:textColor="#ff375bff"
+        android:clickable="true" />
 
 
 </RelativeLayout>
